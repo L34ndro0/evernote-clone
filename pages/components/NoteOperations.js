@@ -44,9 +44,10 @@ export default function NoteOperations() {
             className={styles.input}
             onChange={(event) => setNoteTitle(event.target.value)}
             placeholder="Enter the title..."
+            value={noteTitle}
           />
           <div className={styles.ReactQuill}>
-            <ReactQuill onChange={addDesc} />
+            <ReactQuill onChange={addDesc} value={noteDesc} />
           </div>
           <button className={styles.saveBtn} onClick={saveNote}>
             Save Note
