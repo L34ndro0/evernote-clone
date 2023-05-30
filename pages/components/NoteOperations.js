@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function NoteOperations() {
   const [inputVisible, setInputVisible] = useState(false);
+  const [noteTitle, setNoteTitle] = useState("");
 
   const inputToggle = () => {
     setInputVisible(!inputVisible);
@@ -18,7 +19,11 @@ export default function NoteOperations() {
 
       {inputVisible ? (
         <div className={styles.inputContainer}>
-          <input className={styles.input} placeholder="Enter the title..." />
+          <input
+            className={styles.input}
+            onChange={(event) => setNoteTitle(event.target.value)}
+            placeholder="Enter the title..."
+          />
         </div>
       ) : (
         <></>
