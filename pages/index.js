@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Evernote.module.scss";
 import NoteOperations from "./components/NoteOperations";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Head>
@@ -22,3 +22,4 @@ export default function Home() {
     </>
   );
 }
+export default Home
