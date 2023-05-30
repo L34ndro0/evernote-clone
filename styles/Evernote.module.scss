@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+$dark-red: rgb(119, 27, 27);
+$black: black;
+$whiteSmoke: whiteSmoke;
+$gray: gray;
+
 .container {
     display: flex;
     margin: 10px;
@@ -5,4 +11,54 @@
 
 .left {
     width: 20rem;
+}
+
+.button {
+    width: 15rem;
+    height: 2rem;
+    cursor: pointer;
+    background-color: black;
+    color: whitesmoke;
+    border: black;
+    font-family: 'Roboto';
+}
+
+.input {
+    width: 15rem;
+    height: 2rem;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-top: 5px;    
+}
+
+.saveBtn {
+    width: 15rem;
+    height: 2rem;
+    cursor: pointer;
+    background-color: $dark-red;
+    color: $whiteSmoke;
+    border: $dark-red;
+    font-family: "Roboto";
+    margin-top: 5px;    
+}
+
+.ReactQuill{
+    width: 15rem;
+    margin-top: 5px;
+}
+
+.notesInner{
+    margin-top: 0.5rem;
+    border: 1px solid $dark-red;
+    border-radius: 10px;
+    width: 15rem;
+    text-align: center;
+    cursor: pointer;
+    font-family: "Roboto";
+}
+
+.notesInner:hover{
+    background-color: rgb(119, 27, 27);
+    color: $whiteSmoke;
 }
