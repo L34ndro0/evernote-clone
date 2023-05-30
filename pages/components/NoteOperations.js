@@ -1,7 +1,7 @@
 import styles from "../../styles/Evernote.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { app, database } from "../../firebaseConfig";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 import "react-quill/dist/quill.snow.css";
@@ -10,7 +10,12 @@ export default function NoteOperations() {
   const [inputVisible, setInputVisible] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteDesc, setNoteDesc] = useState("");
+  const [notesArray, setNotesArray] = useState([]);
   const dbInstance = collection(database, "notes");
+
+  useEffect(() => {
+    getNotes();
+  }, []);
 
   const inputToggle = () => {
     setInputVisible(!inputVisible);
@@ -23,6 +28,17 @@ export default function NoteOperations() {
     }).then(() => {
       setNoteDesc("");
       setNoteTitle("");
+      getNotes();
+    });
+  };
+
+  const getNotes = () => {
+    getDocs(dbInstance).then((data) => {
+      setNotesArray(
+        data.docs.map((item) => {
+          return { ...item.data(), id: item.id };
+        })
+      );
     });
   };
 
@@ -56,6 +72,16 @@ export default function NoteOperations() {
       ) : (
         <></>
       )}
+
+      <div className={styles.noteDisplay}>
+        {notesArray.map((note) => {
+          return (
+            <div className={styles.notesInner}>
+              <h4>{note.noteTitle}</h4>              
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }
