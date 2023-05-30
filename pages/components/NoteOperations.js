@@ -6,7 +6,7 @@ const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 import "react-quill/dist/quill.snow.css";
 
-export default function NoteOperations() {
+export default function NoteOperations({ getSingleNote }) {
   const [inputVisible, setInputVisible] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteDesc, setNoteDesc] = useState("");
@@ -76,8 +76,12 @@ export default function NoteOperations() {
       <div className={styles.noteDisplay}>
         {notesArray.map((note) => {
           return (
-            <div className={styles.notesInner}>
-              <h4>{note.noteTitle}</h4>              
+            <div
+              className={styles.notesInner}
+              key={note.id}
+              onClick={() => getSingleNote(note.id)}
+            >
+              <h4>{note.noteTitle}</h4>
             </div>
           );
         })}
