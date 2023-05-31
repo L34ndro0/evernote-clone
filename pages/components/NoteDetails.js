@@ -6,6 +6,7 @@ import {
   getDocs,
   collection,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
@@ -47,13 +48,21 @@ export default function NoteDetails({ ID }) {
     });
   };
 
+  const deleteNote = (id) => {
+    const collectionById = doc(database, "notes", id);
+
+    deleteDoc(collectionById).then(() => {
+      window.location.reload();
+    });
+  };
+
   return (
     <>
       <div>
         <button className={styles.editBtn} onClick={() => getEditData()}>
           Edit
         </button>
-        <button className={styles.deleteBtn}>Delete</button>
+        <button className={styles.deleteBtn} onClick={()=> deleteNote(singleNote.id)}>Delete</button>
       </div>
       <h2>{singleNote.noteTitle}</h2>
       <div dangerouslySetInnerHTML={{ __html: singleNote.noteDesc }}></div>
