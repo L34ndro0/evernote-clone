@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { app, database } from "../../firebaseConfig";
-import { doc, getDoc, getDocs,collection, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
 import "react-quill/dist/quill.snow.css";
@@ -30,6 +36,17 @@ export default function NoteDetails({ ID }) {
     setNoteDesc(singleNote.noteDesc);
   };
 
+  const editNote = (id) => {
+    const collectionById = doc(database, "notes", id);
+
+    updateDoc(collectionById, {
+      noteTitle: noteTitle,
+      noteDesc: noteDesc,
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
   return (
     <>
       <div>
@@ -51,7 +68,12 @@ export default function NoteDetails({ ID }) {
           <div className={styles.ReactQuill}>
             <ReactQuill value={noteDesc} onChange={setNoteDesc} />
           </div>
-          <button className={styles.saveBtn}>Update note</button>
+          <button
+            className={styles.saveBtn}
+            onClick={() => editNote(singleNote.id)}
+          >
+            Update note
+          </button>
         </div>
       ) : (
         <></>
